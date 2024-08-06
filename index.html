@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livewell Registration & Incentive Campaign</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6dd5fa, #2980b9);
+            color: white;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            padding: 40px 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        section {
+            padding: 20px;
+            margin: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .cta-button {
+            padding: 15px 30px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .cta-button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        .cta-button:hover:enabled {
+            background-color: #c0392b;
+        }
+
+        label {
+            display: block;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+
+        input[type="text"], input[type="email"], input[type="number"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #2ecc71;
+        }
+
+        #incentiveMessage {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #fff;
+        }
+
+        footer {
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            font-size: 0.9em;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Join Livewell Community Managers & Relationship Officers</h1>
+        <p>Recruit and earn incentives by helping others get registered!</p>
+    </header>
+
+    <section>
+        <h2>Become a Community Manager</h2>
+        <p>Recruit at least 10 Relationship Officers and earn an incentive of 10,000 Naira per officer who successfully recruits at least 20 registered members.</p>
+        <button class="cta-button" id="communityManagerBtn">Become a Community Manager</button>
+    </section>
+
+    <section>
+        <h2>Become a Relationship Officer</h2>
+        <p>Help us grow our network by recruiting at least 20 registered members. Earn 1,000 Naira for each successful registration, with a bonus of 10,000 Naira for every 50 registrations.</p>
+        <button class="cta-button" id="relationshipOfficerBtn">Become a Relationship Officer</button>
+    </section>
+
+    <section id="formSection" class="hidden">
+        <h2>Application Form</h2>
+        <form id="applicationForm">
+            <label for="role">Select Role:</label>
+            <select id="role">
+                <option value="Community Manager">Community Manager</option>
+                <option value="Relationship Officer">Relationship Officer</option>
+            </select>
+
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" placeholder="Enter your name" required>
+
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+
+            <button type="submit">Submit</button>
+        </form>
+        <div id="incentiveMessage"></div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Livewell Housing Solutions Ltd. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('communityManagerBtn').addEventListener('click', function() {
+            document.getElementById('formSection').classList.toggle('hidden');
+            document.getElementById('role').value = 'Community Manager';
+        });
+
+        document.getElementById('relationshipOfficerBtn').addEventListener('click', function() {
+            document.getElementById('formSection').classList.toggle('hidden');
+            document.getElementById('role').value = 'Relationship Officer';
+        });
+
+        document.getElementById('applicationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const role = document.getElementById('role').value;
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+
+            let subject = `${role} Application from ${name}`;
+            let body = `Dear Livewell,\n\nI would like to apply for the position of ${role}.\n\nName: ${name}\nEmail: ${email}\n\nBest regards,\n${name}`;
+            let mailtoLink = `mailto:mondaykingsley80@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+            // Send email
+            window.location.href = mailtoLink;
+
+            // Redirect to WhatsApp group with pre-filled message
+            let whatsappLink = `https://chat.whatsapp.com/EDUHywJDiQO0JDHs69XZmG?text=${encodeURIComponent('Hello, my name is ' + name + '. I am interested in applying for the position of ' + role + '.')}`;
+            window.open(whatsappLink, '_blank');
+
+            // Display confirmation message
+            document.getElementById('incentiveMessage').innerText = `Thank you ${name}, your application for the ${role} role has been submitted!`;
+        });
+    </script>
+</body>
+</html>
